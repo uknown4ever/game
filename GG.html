@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch the Box Game</title>
+    <style>
+        #game-container {
+            width: 600px;
+            height: 400px;
+            border: 2px solid #333;
+            position: relative;
+            margin: 20px auto;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+
+        #target {
+            width: 50px;
+            height: 50px;
+            background-color: #ff4444;
+            position: absolute;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #target:hover {
+            background-color: #ff6666;
+        }
+
+        #score-container {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        #start-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #start-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div id="score-container">Score: <span id="score">0</span></div>
+    <div id="game-container">
+        <div id="target"></div>
+    </div>
+    <button id="start-btn">Start Game</button>
+
+    <script>
+        const target = document.getElementById('target');
+        const gameContainer = document.getElementById('game-container');
+        const scoreElement = document.getElementById('score');
+        const startBtn = document.getElementById('start-btn');
+        let score = 0;
+        let gameInterval;
+        let gameActive = false;
+
+        function moveTarget() {
+            const maxX = gameContainer.clientWidth - target.clientWidth;
+            const maxY = gameContainer.clientHeight - target.clientHeight;
+            
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            target.style.left = randomX + 'px';
+            target.style.top = randomY + 'px';
+        }
+
+        function startGame() {
+            if (gameActive) return;
+            
+            gameActive = true;
+            score = 0;
+            scoreElement.textContent = score;
+            startBtn.textContent = 'Reset Game';
+            
+            moveTarget();
+            gameInterval = setInterval(moveTarget, 1000);
+        }
+
+        function resetGame() {
+            gameActive = false;
+            clearInterval(gameInterval);
+            startBtn.textContent = 'Start Game';
+        }
+
+        target.addEventListener('click', () => {
+            if (!gameActive) return;
+            
+            score++;
+            scoreElement.textContent = score;
+            moveTarget();
+        });
+
+        startBtn.addEventListener('click', () => {
+            if (gameActive) {
+                resetGame();
+            } else {
+                startGame();
+            }
+        });
+    </script>
+</body>
+</html>
