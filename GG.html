@@ -5,50 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catch the Box Game</title>
     <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #1a1a2e);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+        }
+
         #game-container {
             width: 600px;
             height: 400px;
-            border: 2px solid #333;
+            border: 3px solid #30475e;
             position: relative;
             margin: 20px auto;
             overflow: hidden;
-            background-color: #f0f0f0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
         }
 
         #target {
             width: 50px;
             height: 50px;
-            background-color: #ff4444;
+            background: linear-gradient(45deg, #ff4444, #ff6b6b);
             position: absolute;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
         }
 
         #target:hover {
-            background-color: #ff6666;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255, 68, 68, 0.8);
         }
 
         #score-container {
             text-align: center;
-            font-family: Arial, sans-serif;
-            font-size: 24px;
+            font-size: 28px;
             margin-top: 20px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         }
 
         #start-btn {
             display: block;
             margin: 20px auto;
-            padding: 10px 20px;
+            padding: 12px 30px;
             font-size: 18px;
-            background-color: #4CAF50;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 25px;
             cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         #start-btn:hover {
-            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        #start-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Add a glow effect to the game container on hover */
+        #game-container:hover {
+            box-shadow: 0 0 30px rgba(48, 71, 94, 0.5);
+        }
+
+        /* Score animation */
+        @keyframes scoreUpdate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .score-update {
+            animation: scoreUpdate 0.3s ease;
         }
     </style>
 </head>
