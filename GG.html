@@ -95,14 +95,22 @@
             gameActive = false;
             clearInterval(gameInterval);
             startBtn.textContent = 'Start Game';
+            alert(`Game Over! Your final score was: ${score}`);
         }
 
-        target.addEventListener('click', () => {
+        target.addEventListener('click', (e) => {
             if (!gameActive) return;
             
             score++;
             scoreElement.textContent = score;
             moveTarget();
+            e.stopPropagation(); // Prevent the click from bubbling to the container
+        });
+
+        gameContainer.addEventListener('click', () => {
+            if (gameActive) {
+                resetGame();
+            }
         });
 
         startBtn.addEventListener('click', () => {
